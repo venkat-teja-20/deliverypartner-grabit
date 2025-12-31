@@ -51,7 +51,7 @@ public class APIExceptionHandler {
                 if (matcher.find()) {
                     String name = matcher.group(1);
                     String value = matcher.group(2);
-                    return new APIError("DUPLICATE_RECORD", name + " [" + value + "] already exists");
+                    return new APIError("DUPLICATE_RECORD", name + "already exists");
                 }
             }
             return new APIError("INVALID_REQUEST", ex.getMessage());
