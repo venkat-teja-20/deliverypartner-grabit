@@ -12,6 +12,7 @@ import jakarta.validation.ConstraintViolationException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -51,7 +52,7 @@ public class APIExceptionHandler {
                 if (matcher.find()) {
                     String name = matcher.group(1);
                     String value = matcher.group(2);
-                    return new APIError("DUPLICATE_RECORD", name + "already exists");
+                    return new APIError("DUPLICATE_RECORD", name + " already exists");
                 }
             }
             return new APIError("INVALID_REQUEST", ex.getMessage());
@@ -141,6 +142,8 @@ public class APIExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     public APIError handleException(Exception ex, HttpServletResponse response) {
+        if(ex instanceof AccessDeniedException e)
+            throw e;
         log.info("Unknown Issue Occurred : " + ex.getMessage());
         response.setStatus(500);
         return new APIError(CommonErrors.unknown_error.toString(), CommonErrors.unknown_error.getMessage());
