@@ -7,6 +7,7 @@ import com.grabit.service.DeliveryPartnerService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,7 @@ public class DeliveryPartnerController {
     private DeliveryPartnerService deliveryPartnerService;
 
     @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyAuthority('ADMIN','END_USER')")
     public DeliveryPartnerDTO addDeliveryPartner(@RequestBody DeliveryPartnerDTO request, HttpServletResponse response) {
         response.setStatus(201);
         return deliveryPartnerService.addNewPartner(request);

@@ -24,6 +24,7 @@ public class CustomAuthHandler implements AuthenticationEntryPoint, AccessDenied
             log.warn("Remote Host : "+request.getRemoteHost());
             log.warn("Remote Address : "+request.getRemoteAddr());
             log.info("Authentication Error : "+authException);
+            log.info("Authentication Request : "+Utility.toJson(authException.getAuthenticationRequest()));
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setContentType("application/json");
             response.getWriter().write(Utility.toJson(new APIError(CommonErrors.AUTHENTICATION_ERROR.toString(),CommonErrors.AUTHENTICATION_ERROR.getMessage())));

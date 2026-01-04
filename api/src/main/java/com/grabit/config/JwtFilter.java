@@ -63,7 +63,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 if (Utility.isNullOrEmpty(roleAndPermissionsDetails.getBody()) || Utility.isNullOrEmpty(roleAndPermissionsDetails.getBody().getRole()))
                     throw new CustomException(Utility.buildErrorObject("INVALID_RESPONSE", "response received from auth service while fetching role details is null or not valid", 500, "jwtFilter"));
 
-                authorities.add(new SimpleGrantedAuthority(roleAndPermissionsDetails.getBody().getRole().name()));
+                authorities.add(new SimpleGrantedAuthority("ROLE_"+roleAndPermissionsDetails.getBody().getRole().name()));
                 for(PermissionDTO permissionDTO:roleAndPermissionsDetails.getBody().getPermissions()){
                     authorities.add(new SimpleGrantedAuthority(permissionDTO.getPermission().name()));
                 }
