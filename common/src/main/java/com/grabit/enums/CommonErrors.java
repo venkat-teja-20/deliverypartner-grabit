@@ -11,6 +11,12 @@ public enum CommonErrors {
     NO_DATA_FOUND("No Records Found in the Database"),
     MEMBER_NOT_FOUND("No Member found with the provided member id"),
     REQUEST_BODY_MISSING("Request Body is required for this operation"),
+    ACCESS_DENIED("You do not have the permission to access this resource"),
+    AUTHENTICATION_FAILED("Error decoding signature"),
+    AUTHENTICATION_EXPIRED("Signature has expired"),
+    AUTHENTICATION_REQUIRED("User is not authenticated"),
+    AUTHENTICATION_ERROR("Authentication is required"),
+    Forbidden("You do not have the permission to access this resource"),
     MANDATORY_ATTRIBUTES_MISSING("Required attributes are missing in the request body"),
     INVALID_MEMBER_ID("Member Id Provided is Not Valid");
 
